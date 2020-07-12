@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -10,6 +12,12 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { HeroesComponent } from './heroes/heroes.component';
+import { HeroDetailComponent } from './hero-detail/hero-detail.component';
+import { MessageComponent } from './message/message.component';
+import { AppRoutingModule } from './app-routing.module';
+import { InMemoryDataService } from'./in-memory-data.service.service';
+import { HerosearchComponent } from './herosearch/herosearch.component';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +26,10 @@ import { HeroesComponent } from './heroes/heroes.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    HeroesComponent
+    HeroesComponent,
+    HeroDetailComponent,
+    MessageComponent,
+    HerosearchComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -29,7 +40,11 @@ import { HeroesComponent } from './heroes/heroes.component';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'heroes', component: HeroesComponent}
-    ])
+    ]),
+    AppRoutingModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, {dataEncapsulation: false}
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]
